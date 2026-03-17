@@ -4,5 +4,9 @@ abstract class ImagesUrls {
 
   String get splash;
 
+  String get logIn;
+
+  String get mainBackground;
+
 
 }

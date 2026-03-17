@@ -13,4 +13,9 @@ class AppColors implements BaseColors{
   @override
   Color get colorSecondary => const Color(0xFF8D8D8D);
 
+  @override
+  Color get colorRed => const Color(0xffF10B0E);
+
+  @override
+  Color get colorWhite => const Color(0xFFFFFFFF);
 }

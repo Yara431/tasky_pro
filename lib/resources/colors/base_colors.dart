@@ -8,4 +8,6 @@ abstract class BaseColors{
 
   Color get colorSecondary;
 
+  Color get colorRed;
+
 }

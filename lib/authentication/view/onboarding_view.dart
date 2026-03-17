@@ -20,39 +20,38 @@ class _OnboardingViewState extends State<OnboardingView> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (BuildContext context) => vm,
-      child: Scaffold(
-        body: Selector<AuthViewModel,int>(
-            selector: (context,p)=>p.currentPage,
-            builder: (context,val,child) {
-              return Stack(
-                children: [
-                  Image.asset(context.resources.imagesUrls.splash,
-                    height:MediaQuery.of(context).size.height/2,
-                    fit: BoxFit.cover,),
-                  Padding(
-                    padding: EdgeInsets.only(bottom: context.resources.dimensions.defaultPadding85),
-                    child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Container(
-                        height: MediaQuery.of(context).size.height/2,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(context.resources.dimensions.bigRadius20),
-                                topRight: Radius.circular(context.resources.dimensions.bigRadius20)
-                            )
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              vertical: context.resources.dimensions.padding15,
-                              horizontal:context.resources.dimensions.padding15),
+    return Scaffold(
+      body: Selector<AuthViewModel,int>(
+          selector: (context,p)=>p.currentPage,
+          builder: (context,val,child) {
+            return Stack(
+              children: [
+                Image.asset(context.resources.imagesUrls.splash,
+                  height:MediaQuery.of(context).size.height/2,
+                  fit: BoxFit.cover,),
+                Padding(
+                  padding: EdgeInsets.only(bottom: context.resources.dimensions.padding20),
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                      height: MediaQuery.of(context).size.height/2,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(context.resources.dimensions.bigRadius20),
+                              topRight: Radius.circular(context.resources.dimensions.bigRadius20)
+                          )
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                            vertical: context.resources.dimensions.padding15,
+                            horizontal:context.resources.dimensions.padding15),
+                        child: SingleChildScrollView(
                           child: Column(
                             children: [
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                children: List.generate(3,(index){
+                                children: List.generate(2,(index){
                                   return Padding(
                                     padding: EdgeInsets.symmetric(horizontal:context.resources.dimensions.padding4),
                                     child: Container(
@@ -109,7 +108,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                                     );
                                   }),
                                   */
-                              SizedBox(height:context.resources.dimensions.padding40,),
+                              SizedBox(height:context.resources.dimensions.padding20,),
                               Text('Tasky Pro',
                                 style: TextStyling.moreLargeBoldText.copyWith(
                                     color: context.resources.color.colorPrimary
@@ -120,7 +119,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                                 'From Tasks to Triumph',
                                 style: TextStyling.extraLargeBoldText,
                               ),
-                              SizedBox(height: context.resources.dimensions.padding40,),
+                              SizedBox(height: context.resources.dimensions.padding20,),
                               Text(
                                 textAlign: TextAlign.center,
                                 'A smarter way to manage tasks, stay focused, and achieve your goals by streamlining your daily workflow, eliminating digital distractions, and providing the actionable insights you need to prioritize what truly matters',
@@ -128,24 +127,24 @@ class _OnboardingViewState extends State<OnboardingView> {
                                     color: context.resources.color.colorSecondary
                                 ),
                               ),
-                              SizedBox(height: context.resources.dimensions.padding40,),
+                              SizedBox(height: context.resources.dimensions.padding20,),
                               CommonButton(
                                 onPress: ()
                                 {
                                   print('change');
                                   context.push(
                                     AppLinks.signIn);},
-                                  text: 'Get Started')
+                                  text: 'Get Started'),
                             ],
                           ),
                         ),
                       ),
                     ),
-                  )
-                ],
-              );
-            }
-        ),
+                  ),
+                )
+              ],
+            );
+          }
       ),
     );
   }
