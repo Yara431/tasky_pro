@@ -8,5 +8,7 @@ abstract class ImagesUrls {
 
   String get mainBackground;
 
+  String get profileImage;
+
 
 }

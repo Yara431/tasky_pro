@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tasky_pro/app_context_extension.dart';
+import 'package:tasky_pro/main_componant/loader.dart';
 import 'package:tasky_pro/utils/routes/app_links.dart';
 
 class AuthViewModel extends ChangeNotifier {
@@ -19,6 +20,7 @@ class AuthViewModel extends ChangeNotifier {
     currentPage = index;
     notifyListeners();
   }
+
 
   togglePass() {
     showPass = !showPass;
@@ -37,11 +39,11 @@ class AuthViewModel extends ChangeNotifier {
     required String password,
     required BuildContext context})async{
     try{
-
+      LoaderApp.showLoadingDialog(context);
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: email,
           password: password);
-      await Future.delayed(Duration(seconds: 5));
+      await Future.delayed(Duration(seconds: 2));
       context.push(AppLinks.homeView);
     } on FirebaseAuthException catch (e){
       String message='';
@@ -76,6 +78,7 @@ class AuthViewModel extends ChangeNotifier {
 })async{
     if(email.isNotEmpty || password.isNotEmpty) {
       try {
+        LoaderApp.showLoadingDialog(context);
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
             email: email,
             password: password);

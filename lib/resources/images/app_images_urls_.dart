@@ -14,5 +14,8 @@ class AppImagesUrls implements ImagesUrls{
   @override
   String get mainBackground => 'assets/images/main_bac.png';
 
+  @override
+  String get profileImage =>'assets/images/images-5.jpeg';
+
 
 }

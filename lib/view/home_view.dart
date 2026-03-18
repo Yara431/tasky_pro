@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tasky_pro/app_context_extension.dart';
 import 'package:tasky_pro/resources/text_style/text_styling.dart';
+import 'package:tasky_pro/utils/routes/app_links.dart';
 import 'package:tasky_pro/view%20model/home_view_model.dart';
 
 class HomeView extends StatefulWidget {
@@ -13,6 +15,12 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
 
   HomeViewModel vm = HomeViewModel();
+
+  @override
+  void initState() {
+    vm.updateGreeting();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,26 +46,112 @@ class _HomeViewState extends State<HomeView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        CircleAvatar(
-                          //backgroundColor: context.resources.color.colorSecondary,
-                        foregroundColor: Colors.lightGreen,
-                        ),
-                        SizedBox(width: context.resources.dimensions.padding8,),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
+                        Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Good Morning !',style: TextStyling.semiBoldText14.copyWith(
-                              color: Colors.white
-                            ),),
-                            SizedBox(height: context.resources.dimensions.padding4,),
-                            Text('Yara',style: TextStyling.semiBoldText14.copyWith(
-                              color: Colors.yellow,
-                              fontSize: 18
-                            ),)
+                            CircleAvatar(
+                              //backgroundColor: context.resources.color.colorRed,
+                            foregroundColor: Colors.lightGreen,
+                              child: Image.asset(context.resources.imagesUrls.profileImage,
+                              height: 20,
+                              ),
+                            ),
+                            SizedBox(width: context.resources.dimensions.padding8,),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(vm.greeting,style: TextStyling.semiBoldText14.copyWith(
+                                  color: Colors.white
+                                ),),
+                                SizedBox(height: context.resources.dimensions.padding4,),
+                                Text('Yara',style: TextStyling.semiBoldText14.copyWith(
+                                  color: Colors.yellow,
+                                  fontSize: 18
+                                ),)
+                              ],
+                            )
                           ],
+                        ),
+                        InkWell(
+                          onTap: (){
+                            showDialog(context: context, builder: (context){
+                              return AlertDialog(
+                                backgroundColor: context.resources.color.colorWhite,
+                                content: SizedBox(
+                                  height: MediaQuery.of(context).size.height/5,
+                                  child: Column(
+                                    children: [
+                                      Icon(Icons.waving_hand,
+                                        color: context.resources.color.colorPrimary,
+                                      size: 55,
+                                      ),
+                                      SizedBox(height: context.resources.dimensions.padding15,),
+                                      Text('Are you sure you want to log out?',
+                                      style: TextStyling.semiBoldText14.copyWith(
+                                      ),
+                                      ),
+                                      SizedBox(height: context.resources.dimensions.padding20,),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          InkWell(
+                                            onTap: (){
+                                              vm.signOut(context);
+                                              context.push(AppLinks.onBoarding);
+                                              },
+                                            child: Container(
+                                              height: 35,
+                                              width: 55,
+                                              decoration: BoxDecoration(
+                                                color: context.resources.color.colorPrimary,
+                                                borderRadius: BorderRadius.circular(context.resources.dimensions.mediumRadius8),
+                                              ),
+                                              child: Center(
+                                                child: Text('Yes',style: TextStyling.semiBoldText14.copyWith(
+                                                  color: context.resources.color.colorWhite
+                                                ),),
+                                              )),
+                                          ),
+                                          SizedBox(width: context.resources.dimensions.padding15,),
+                                          InkWell(
+                                            onTap: ()=>context.pop(),
+                                            child: Container(
+                                              height: 35,
+                                              width: 55,
+                                              decoration: BoxDecoration(
+                                                color: context.resources.color.colorPrimary,
+                                                borderRadius: BorderRadius.circular(context.resources.dimensions.mediumRadius8),
+                                              ),
+                                              child: Center(
+                                                child: Text('No',style: TextStyling.semiBoldText14.copyWith(
+                                                  color: context.resources.color.colorWhite
+                                                ),),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      )
+
+                                    ],
+                                  ),
+                                ),
+                              );
+                            });
+                            //vm.signOut(context);
+                          //context.push(AppLinks.onBoarding);
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: context.resources.dimensions.padding8,
+                            vertical: context.resources.dimensions.padding8
+                            ),
+                              decoration: BoxDecoration(
+                                color: context.resources.color.colorWhite,
+                                borderRadius: BorderRadius.circular(context.resources.dimensions.bigRadius20)
+                              ),
+                              child: Icon(Icons.logout,color: context.resources.color.colorRed,)),
                         )
                       ],
                     ),
